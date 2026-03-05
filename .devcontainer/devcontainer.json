@@ -44,18 +44,20 @@
   "remoteUser": "node",
   "mounts": [
     "source=claude-code-bashhistory-${devcontainerId},target=/commandhistory,type=volume",
-    "source=claude-code-config-${devcontainerId},target=/home/node/.claude,type=volume"
+    "source=claude-code-config-${devcontainerId},target=/home/node/.claude,type=volume",
+    "source=${localEnv:USERPROFILE}\\.gitconfig,target=/home/node/.gitconfig,type=bind"
   ],
   "containerEnv": {
     "NODE_OPTIONS": "--max-old-space-size=4096",
-    "CLAUDE_CONFIG_DIR": "/home/node/.claude"
-    // "POWERLEVEL9K_DISABLE_GITSTATUS": "true",
-    // "ANTHROPIC_AUTH_TOKEN": "ollama",
-    // "ANTHROPIC_API_KEY": "",
-    // "ANTHROPIC_BASE_URL": "http://host.docker.internal:11434",
-    // "ANTHROPIC_MODEL": "gpt-oss:20b",
-    // "ANTHROPIC_SMALL_FAST_MODEL": "gpt-oss:20b"
+    "CLAUDE_CONFIG_DIR": "/home/node/.claude",
+    "POWERLEVEL9K_DISABLE_GITSTATUS": "true",
+    "ANTHROPIC_AUTH_TOKEN": "claude-local",
+    "ANTHROPIC_API_KEY": "claude-local",
+    "ANTHROPIC_BASE_URL": "http://localhost:4000",
+    "ANTHROPIC_MODEL": "gpt-oss-20b",
+    "ANTHROPIC_SMALL_FAST_MODEL": "gpt-oss-20b"
   },
+  "postStartCommand": "litellm --config /workspace/.devcontainer/litellm_config.yaml --port 4000 &> /tmp/litellm.log &",
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=delegated",
   "workspaceFolder": "/claude-local-llm"
 }
