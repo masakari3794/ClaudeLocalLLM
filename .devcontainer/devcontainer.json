@@ -44,8 +44,7 @@
   "remoteUser": "node",
   "mounts": [
     "source=claude-code-bashhistory-${devcontainerId},target=/commandhistory,type=volume",
-    "source=claude-code-config-${devcontainerId},target=/home/node/.claude,type=volume",
-    "source=${localEnv:USERPROFILE}\\.gitconfig,target=/home/node/.gitconfig,type=bind"
+    "source=claude-code-config-${devcontainerId},target=/home/node/.claude,type=volume"
   ],
   "containerEnv": {
     "NODE_OPTIONS": "--max-old-space-size=4096",
@@ -57,7 +56,8 @@
     "ANTHROPIC_MODEL": "gpt-oss-20b",
     "ANTHROPIC_SMALL_FAST_MODEL": "gpt-oss-20b"
   },
-  "postStartCommand": "litellm --config /workspace/.devcontainer/litellm_config.yaml --port 4000 &> /tmp/litellm.log &",
+  "postCreateCommand": "git config --global user.name \"masakari3794\" && git config --global user.email \"girisu1083sakana@gmail.com\"",
+  "postStartCommand": "git config --global --add safe.directory /workspace && litellm --config /workspace/.devcontainer/litellm_config.yaml --port 4000 &> /tmp/litellm.log &",
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=delegated",
-  "workspaceFolder": "/claude-local-llm"
+  "workspaceFolder": "/workspace"
 }
