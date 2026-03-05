@@ -56,7 +56,7 @@
     "ANTHROPIC_MODEL": "gpt-oss-20b",
     "ANTHROPIC_SMALL_FAST_MODEL": "gpt-oss-20b"
   },
-  "postCreateCommand": "git config --global user.name \"masakari3794\" && git config --global user.email \"girisu1083sakana@gmail.com\"",
+  "postCreateCommand": "git config --global user.name \"masakari3794\" && git config --global user.email \"girisu1083sakana@gmail.com\" && git config --global --add safe.directory /workspace",
   "postStartCommand": "git config --global --add safe.directory /workspace && litellm --config /workspace/.devcontainer/litellm_config.yaml --port 4000 &> /tmp/litellm.log &",
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=delegated",
   "workspaceFolder": "/workspace"
